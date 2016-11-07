@@ -3,7 +3,7 @@
 The IDEA framework formalises notions of how creative acts can be measured in
 terms of impact and allows contrast and comparison of creative software.
 
-Measures are derived from an *ideal* audiences:
+Measures are derived from an *ideal* audiences':
 - indication of change in well-being
 - cognitive effort spent trying to appreciate the creative artefact.
 
