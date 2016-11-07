@@ -13,7 +13,7 @@ This library provides an implementation of the IDEA framework for use in Clojure
 
 ## Usage
 
-Clone this repository and use 'lein install' to install the library. Then add
+Clone this repository and use `lein install` to install the library. Then add
 `[idea "0.1.0-SNAPSHOT"]` to the dependencies of any projects you wish to use it
 in.
 
