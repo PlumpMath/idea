@@ -1,24 +1,33 @@
 (ns idea.core
-  (:require [incanter.core :as i :refer [$=]]
-            [incanter.stats :as s]))
+  "The IDEA framework formalises notions of how creative acts can be measured in
+  terms of impact and allows contrast and comparison of creative software.
+
+  Measures derived from:
+    - indication of change in well-being
+    - cognitive effort spent trying to appreciate the creative artefact."
+  (:require [incanter.stats :as s]))
+
+;; Audience creation
 
 (defn member
   [well-being cognitive-effort]
-  {:well-being well-being
+  {:well-being       well-being
    :cognitive-effort cognitive-effort})
 
 (defn rand-member
   "Generates a random ideal audience member."
-  (member (dec (rand 2)) (rand)})
+  [] (member (dec (rand 2)) (rand)))
 
 (defn rand-audience
   "Generates a random audience with n members."
-  [n] (repeatedly n rand-member)))
+  [n] (repeatedly n rand-member))
+
+;; Simple audience measures
 
 (defn measure-audience
   "apply f to every item in audience, and average and weight the result.
-  f is function that returns a scalar.
-  Note that almost all basic fns take this form."
+  f is function over an audience member that returns a scalar.
+  All basic fns in IDEA take this form except divisiveness."
   [weight f audience]
   (->> audience
        (map f)
@@ -35,7 +44,7 @@
   (partial measure-audience 1/2 #(inc (:well-being %))))
 
 (def provocation
-  (partial measure-audience 1 :effort))
+  (partial measure-audience 1 :cognitive-effort))
 
 (defn divisiveness
   [audience]
@@ -43,6 +52,8 @@
         mean        (s/mean well-beings)
         deviation   (fn [wb] (- wb mean))]
     (->> well-beings (map deviation) (s/mean))))
+
+;; Composed audience measures
 
 (defn acquired-taste
   [a] (/ (+ (popularity a) (provocation a)) 2))
